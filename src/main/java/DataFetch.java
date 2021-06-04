@@ -13,7 +13,6 @@ public class DataFetch {
     public static ArrayList<Double> dailyData(String ticker, String type){
         //Fetches stock data
         ticker = ticker.toUpperCase(Locale.ROOT);
-        //OUTSIDE JAVA SUBSET
         TimeSeriesResponse response = AlphaVantage.api()
                 .timeSeries()
                 .daily()

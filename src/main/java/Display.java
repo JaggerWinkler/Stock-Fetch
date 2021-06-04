@@ -6,6 +6,10 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.event.*;
 class Display extends JFrame implements ActionListener {
+    /**
+     * PUT API KEY IN FOLLOWING STRING
+     */
+    final static String APIKEY = "APIKEY";
     // JTextField
     static JTextField t;
     static JTextField x;
@@ -70,7 +74,7 @@ class Display extends JFrame implements ActionListener {
 
         //configs finance API
         Config cfg = Config.builder()
-                .key("8SF04MW0TDZBKJD9")
+                .key(APIKEY)
                 .timeOut(10)
                 .build();
         AlphaVantage.api().init(cfg);
@@ -87,10 +91,11 @@ class Display extends JFrame implements ActionListener {
             //if only a ticker is given
             if(x.getText().length() == 0) {
                 //get list from finance API
-                List<Double> toPlot = DataFetch.dailyData(t.getText(), "high");
+                List<Double> toPlot1 = DataFetch.dailyData(t.getText(), "high");
+                List<Double> toPlot2 = DataFetch.dailyData(t.getText(), "low");
                 try {
                     //graph data
-                    grapher.toGraph(toPlot, t.getText().toUpperCase(Locale.ROOT), "high");
+                    grapher.toGraph(toPlot1, t.getText().toUpperCase(Locale.ROOT), "Price",toPlot2);
                 }
                 //To prevent program from having too large of an issue when an error occurs
                 catch (PythonExecutionException pythonExecutionException) {
